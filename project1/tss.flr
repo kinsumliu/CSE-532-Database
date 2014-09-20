@@ -1,0 +1,87 @@
+/*
+Database Schema
+  contestants(Name).
+  Key: Name
+
+  shows(Date, ShowName).
+  Key: Date
+
+  judgeShow(ShowName, Judge).
+  Key: {ShowName, Judge}
+
+  auditions(ShowName, Name, Piece, Judge, Score)
+  Key: {ShowName, Name, Piece, Judge}
+*/
+
+contestants(Joe).
+contestants(Bob).
+contestants(Mary).
+contestants(Ann).
+contestants(Bess).
+contestants(Tom).
+contestants(Don).
+
+shows(20140202, Show1).
+shows(20140402, Show2).
+shows(20140602, Show3).
+shows(20140702, Show4).
+shows(20141005, Show5).
+
+judgeShow(Show1, Judy).
+judgeShow(Show1, Lucy).
+judgeShow(Show1, Irving).
+judgeShow(Show2, Judy).
+judgeShow(Show2, Phil).
+judgeShow(Show3, Irving).
+judgeShow(Show3, Phil).
+judgeShow(Show3, Oscar).
+judgeShow(Show4, Lucy).
+judgeShow(Show4, Oscar).
+judgeShow(Show5, Lucy).
+judgeShow(Show5, Irving).
+judgeShow(Show5, Phil).
+
+auditions(Show1, Joe, Barcarolle, Judy, 7).
+auditions(Show1, Joe, Barcarolle, Lucy, 8).
+auditions(Show1, Joe, Barcarolle, Irving, 6).
+auditions(Show1, Mary, Barcarolle, Judy,5).
+auditions(Show1, Mary, Barcarolle, Lucy, 6).
+auditions(Show1, Mary, Barcarolle, Irving, 6).
+auditions(Show1, Mary, Giselle, Judy, 9).
+auditions(Show1, Mary, Giselle, Lucy, 6).
+auditions(Show1, Mary, Giselle, Irving, 8).
+auditions(Show1, Bess, 'Besame Mucho', Judy, 4).
+auditions(Show1, Bess, 'Besame Mucho', Lucy, 5).
+auditions(Show1, Bess, 'Besame Mucho', Irving, 6).
+auditions(Show1, Don, 'Besame Mucho', Judy, 9).
+auditions(Show1, Don, 'Besame Mucho', Lucy, 9).
+auditions(Show1, Don, 'Besame Mucho', Irving, 7).
+auditions(Show1, Don, 'Swan Lake', Judy, 7).
+auditions(Show1, Don, 'Swan Lake', Lucy, 7).
+auditions(Show1, Don, 'Swan Lake', Irving, 10).
+
+auditions(Show2, Bob, 'Swan Lake', Judy, 8).
+auditions(Show2, Bob, 'Swan Lake', Phil, 6).
+auditions(Show2, Mary, Habanera, Judy, 3).
+auditions(Show2, Mary, Habanera, Phil, 5).
+auditions(Show2, Mary, 'Besame Mucho', Judy, 9).
+auditions(Show2, Mary, 'Besame Mucho', Phil, 10).
+auditions(Show2, Ann, Habanera, Judy, 7).
+auditions(Show2, Ann, Habanera, Phil, 6).
+auditions(Show2, Bess, Giselle, Judy, 8).
+auditions(Show2, Bess, Giselle, Phil, 7).
+auditions(Show2, Tom, 'Besame Mucho', Judy, 5).
+auditions(Show2, Tom, 'Besame Mucho', Phil, 5).
+auditions(Show2, Tom, 'The Tramp', Judy, 7).
+auditions(Show2, Tom, 'The Tramp', Phil, 6).
+
+/*
+Rule 1: Find all pairs of contestants who happened to audition the same piece
+during the same show and got the same score from at least one judge
+
+Query 1:
+*/
+pairSameScore(?U1, ?U2, ?Show, ?Piece, ?Score) :-
+  auditions(?Show, ?U1, ?Piece, ?Judge, ?Score),
+  auditions(?Show, ?U2, ?Piece, ?Judge, ?Score),
+  (?U1 @< ?U2).
