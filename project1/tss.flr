@@ -1,3 +1,12 @@
+/********
+  CSE-532-Database Project 1
+  Name: Kin Sum Liu
+  Id: 109247869
+  Email: kinsum.liu@stonybrook.edu
+  I pledge my honor that all parts of this project were done by me individually
+  and without collaboration with others
+********/
+
 /*
 Database Schema
   contestants(Name).
@@ -76,10 +85,10 @@ auditions(Show2, Tom, 'The Tramp', Judy, 7).
 auditions(Show2, Tom, 'The Tramp', Phil, 6).
 
 /*
-Rule 1: Find all pairs of contestants who happened to audition the same piece
+Query 1: Find all pairs of contestants who happened to audition the same piece
 during the same show and got the same score from at least one judge
 
-Query 1:
+Test: pairSameScore(?U1, ?U2, ?_Show, ?_Piece, ?_Score).
 */
 pairSameScore(?U1, ?U2, ?Show, ?Piece, ?Score) :-
   auditions(?Show, ?U1, ?Piece, ?Judge, ?Score),
