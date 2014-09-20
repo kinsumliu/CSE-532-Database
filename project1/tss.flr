@@ -93,4 +93,21 @@ Test: pairSameScore(?U1, ?U2, ?_Show, ?_Piece, ?_Score).
 pairSameScore(?U1, ?U2, ?Show, ?Piece, ?Score) :-
   auditions(?Show, ?U1, ?Piece, ?Judge, ?Score),
   auditions(?Show, ?U2, ?Piece, ?Judge, ?Score),
-  (?U1 @< ?U2).
+  (?U1 @< ?U2). //avoid duplicate entry
+
+/*
+Query 2: Find all pairs of contestants who happened to audition the same piece
+(in possibly different shows) and got the same average score for that piece
+
+Explanation: averScore is an intermediate relation that computes average score
+of a person on a piece
+
+Test:
+*/
+averScore(?Average, ?U, ?Piece) :-
+  ?Average = avg{?_Score[?U, ?Piece] | auditions(?_, ?U, ?Piece, ?_, ?_Score)}.
+
+pairSameAverScore(?U1, ?U2) :-
+  averScore(?Average, ?U1, ?_Piece),
+  averScore(?Average, ?U2, ?_Piece),
+  (?U1 @< ?U2). //avoid duplicate entry
