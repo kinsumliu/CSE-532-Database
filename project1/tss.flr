@@ -84,6 +84,20 @@ auditions(Show2, Tom, 'Besame Mucho', Phil, 5).
 auditions(Show2, Tom, 'The Tramp', Judy, 7).
 auditions(Show2, Tom, 'The Tramp', Phil, 6).
 
+auditions(Show3, Ann, 'Besame Mucho', Irving, 7).
+auditions(Show3, Ann, 'Besame Mucho', Phil, 6).
+auditions(Show3, Ann, 'Besame Mucho', Oscar, 4).
+auditions(Show3, Bess, 'Swan Lake', Irving, 7).
+auditions(Show3, Bess, 'Swan Lake', Phil, 6).
+auditions(Show3, Bess, 'Swan Lake', Oscar, 4).
+
+auditions(Show5, Ann, 'Besame Mucho', Lucy, 7).
+auditions(Show5, Ann, 'Besame Mucho', Irving, 9).
+auditions(Show5, Ann, 'Besame Mucho', Phil, 6).
+auditions(Show5, Bess, Habanera, Lucy, 8).
+auditions(Show5, Bess, Habanera, Irving, 7).
+auditions(Show5, Bess, Habanera, Phil, 10).
+
 /*
 Query 1: Find all pairs of contestants who happened to audition the same piece
 during the same show and got the same score from at least one judge
@@ -93,7 +107,7 @@ Test: pairSameScore(?U1, ?U2, ?_Show, ?_Piece, ?_Score).
 pairSameScore(?U1, ?U2, ?Show, ?Piece, ?Score) :-
   auditions(?Show, ?U1, ?Piece, ?Judge, ?Score),
   auditions(?Show, ?U2, ?Piece, ?Judge, ?Score),
-  (?U1 @< ?U2). //avoid duplicate entry
+  (?U1 @< ?U2).
 
 /*
 Query 2: Find all pairs of contestants who happened to audition the same piece
@@ -102,7 +116,7 @@ Query 2: Find all pairs of contestants who happened to audition the same piece
 Explanation: averScore is an intermediate relation that computes average score
 of a person on a piece
 
-Test:
+Test: pairSameAverScore(?U1, ?U2).
 */
 averScore(?Average, ?U, ?Piece) :-
   ?Average = avg{?_Score[?U, ?Piece] | auditions(?_, ?U, ?Piece, ?_, ?_Score)}.
@@ -110,4 +124,72 @@ averScore(?Average, ?U, ?Piece) :-
 pairSameAverScore(?U1, ?U2) :-
   averScore(?Average, ?U1, ?_Piece),
   averScore(?Average, ?U2, ?_Piece),
-  (?U1 @< ?U2). //avoid duplicate entry
+  (?U1 @< ?U2).
+
+/*
+Query 3: Find all pairs of contestants who auditioned the same piece in
+(possibly different) shows that had at least 3 judges and the two contestants
+got the same highest score.
+
+Explanation:
+*/
+
+showsWithThreeJudges(?Show) :-
+  count{?_Judge[?Show] | judgeShow(?Show, ?_Judge)} >= 3.
+
+highScore(?Show, ?U, ?Piece, ?Max) :-
+  ?Max = max{ ?_Score[?Show, ?U, ?Piece] | auditions(?Show, ?U, ?Piece, ?_, ?_Score)}.
+
+pairSameHighScore(?U1, ?U2) :-
+  highScore(?Show1, ?U1, ?Piece, ?Max),
+  highScore(?Show2, ?U2, ?Piece, ?Max),
+  showsWithThreeJudges(?Show1),
+  showsWithThreeJudges(?Show2),
+  (?U1 @< ?U2).
+
+
+/*
+Query 4: Find all pairs of contestants such that the first contestants has
+performed all the pieces of the second contestant (possible in different shows)
+
+Test: piecesSubsetOf(?U1, ?U2).
+*/
+
+//without quantifiers
+piecesOf(?U, ?Piece) :-
+  auditions(?_, ?U, ?Piece, ?_, ?_).
+
+pairUsers(?U1, ?U2) :-
+  contestants(?U1),
+  contestants(?U2),
+  ?U1 != ?U2.
+
+pieces(?Piece) :-
+  auditions(?_, ?_, ?Piece, ?_, ?_).
+
+test(?Piece, ?U1, ?U2) :-
+  piecesOf(?U1, ?Piece),
+  \naf piecesOf(?U2, ?Piece).
+
+//using explicit quantifiers (forall)
+piecesSubsetOf(?U1, ?U2) :-
+  contestants(?U1),
+  contestants(?U2),
+  (?U1 != ?U2),
+  forall(?Piece)^(
+    auditions(?_, ?U2, ?Piece, ?_, ?_) ~~>
+      auditions(?_, ?U1, ?Piece, ?_, ?_)
+  ).
+
+/*
+Query 5: A chained co-auditions is the transitive closure of the following
+binary relation: X and Y (directly) co-auditioned iff they both performed the
+same piece in the same show and got the same score from at lest one (same) judge.
+
+Test:
+*/
+
+coaudition(?U1, ?U2) :- pairSameScore(?U1, ?U2, ?_Show, ?_Piece, ?_Score).
+coaudition(?U1, ?U3) :-
+  pairSameScore(?U1, ?U2, ?_Show, ?_Piece, ?_Score),
+  coaudition(?U2, ?U3).
