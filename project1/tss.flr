@@ -1,13 +1,13 @@
-/********
+/********************
   CSE-532-Database Project 1
   Name: Kin Sum Liu
   Id: 109247869
   Email: kinsum.liu@stonybrook.edu
   I pledge my honor that all parts of this project were done by me individually
   and without collaboration with others
-********/
+********************/
 
-/*
+/********************
 Database Schema
   contestants(Name).
   Key: Name
@@ -18,9 +18,12 @@ Database Schema
   judgeShow(ShowName, Judge).
   Key: {ShowName, Judge}
 
-  auditions(ShowName, Name, Piece, Judge, Score)
-  Key: {ShowName, Name, Piece, Judge}
-*/
+  auditions{AuditionName, ShowName, Name, Piece}.
+  Key: AuditionName
+
+  scores(AuditionName, Judge, Score)
+  Key: {AuditionName, Judge}
+********************/
 
 contestants(Joe).
 contestants(Bob).
@@ -50,66 +53,147 @@ judgeShow(Show5, Lucy).
 judgeShow(Show5, Irving).
 judgeShow(Show5, Phil).
 
-auditions(Show1, Joe, Barcarolle, Judy, 7).
-auditions(Show1, Joe, Barcarolle, Lucy, 8).
-auditions(Show1, Joe, Barcarolle, Irving, 6).
-auditions(Show1, Mary, Barcarolle, Judy,5).
-auditions(Show1, Mary, Barcarolle, Lucy, 6).
-auditions(Show1, Mary, Barcarolle, Irving, 6).
-auditions(Show1, Mary, Giselle, Judy, 9).
-auditions(Show1, Mary, Giselle, Lucy, 6).
-auditions(Show1, Mary, Giselle, Irving, 8).
-auditions(Show1, Bess, 'Besame Mucho', Judy, 4).
-auditions(Show1, Bess, 'Besame Mucho', Lucy, 5).
-auditions(Show1, Bess, 'Besame Mucho', Irving, 6).
-auditions(Show1, Don, 'Besame Mucho', Judy, 9).
-auditions(Show1, Don, 'Besame Mucho', Lucy, 9).
-auditions(Show1, Don, 'Besame Mucho', Irving, 7).
-auditions(Show1, Don, 'Swan Lake', Judy, 7).
-auditions(Show1, Don, 'Swan Lake', Lucy, 7).
-auditions(Show1, Don, 'Swan Lake', Irving, 10).
+auditions(a1, Show1, Joe, Barcarolle).
+auditions(a2, Show1, Mary, Barcarolle).
+auditions(a3, Show1, Mary, Giselle).
+auditions(a4, Show1, Bess, 'Besame Mucho').
+auditions(a5, Show1, Don, 'Besame Mucho').
+auditions(a6, Show1, Don, 'Swan Lake').
 
-auditions(Show2, Bob, 'Swan Lake', Judy, 8).
-auditions(Show2, Bob, 'Swan Lake', Phil, 6).
-auditions(Show2, Mary, Habanera, Judy, 3).
-auditions(Show2, Mary, Habanera, Phil, 5).
-auditions(Show2, Mary, 'Besame Mucho', Judy, 9).
-auditions(Show2, Mary, 'Besame Mucho', Phil, 10).
-auditions(Show2, Ann, Habanera, Judy, 7).
-auditions(Show2, Ann, Habanera, Phil, 6).
-auditions(Show2, Bess, Giselle, Judy, 8).
-auditions(Show2, Bess, Giselle, Phil, 7).
-auditions(Show2, Tom, 'Besame Mucho', Judy, 5).
-auditions(Show2, Tom, 'Besame Mucho', Phil, 5).
-auditions(Show2, Tom, 'The Tramp', Judy, 7).
-auditions(Show2, Tom, 'The Tramp', Phil, 6).
+auditions(a7, Show2, Bob, 'Swan Lake').
+auditions(a8, Show2, Mary, Habanera).
+auditions(a9, Show2, Mary, 'Besame Mucho').
+auditions(a10, Show2, Ann, Habanera).
+auditions(a11, Show2, Bess, Giselle).
+auditions(a12, Show2, Tom, 'Besame Mucho').
+auditions(a13, Show2, Tom, 'The Tramp').
 
-auditions(Show3, Ann, 'Besame Mucho', Irving, 7).
-auditions(Show3, Ann, 'Besame Mucho', Phil, 6).
-auditions(Show3, Ann, 'Besame Mucho', Oscar, 4).
-auditions(Show3, Bess, 'Swan Lake', Irving, 7).
-auditions(Show3, Bess, 'Swan Lake', Phil, 6).
-auditions(Show3, Bess, 'Swan Lake', Oscar, 4).
+auditions(a14, Show3, Bob, 'The Tramp').
+auditions(a15, Show3, Ann, 'Besame Mucho').
+auditions(a16, Show3, Bess, 'Swan Lake').
+auditions(a17, Show3, Tom, Barcarolle).
+auditions(a18, Show3, Don, Giselle).
 
-auditions(Show5, Ann, 'Besame Mucho', Lucy, 7).
-auditions(Show5, Ann, 'Besame Mucho', Irving, 9).
-auditions(Show5, Ann, 'Besame Mucho', Phil, 6).
-auditions(Show5, Bess, Habanera, Lucy, 8).
-auditions(Show5, Bess, Habanera, Irving, 7).
-auditions(Show5, Bess, Habanera, Phil, 10).
+auditions(a19, Show4, Joe, 'The Tramp').
+auditions(a20, Show4, Bob, Barcarolle).
+auditions(a21, Show4, Ann, 'Besame Mucho').
+auditions(a22, Show4, Tom, 'The Tramp').
+auditions(a23, Show4, Tom, Barcarolle).
 
-/*
+auditions(a24, Show5, Bob, 'Swan Lake').
+auditions(a25, Show5, Bob, Giselle).
+auditions(a26, Show5, Mary, Barcarolle).
+auditions(a27, Show5, Mary, 'Besame Mucho').
+auditions(a28, Show5, Ann, 'Besame Mucho').
+auditions(a29, Show5, Bess, 'Besame Mucho').
+auditions(a30, Show5, Bess, Habanera).
+auditions(a31, Show5, Tom, 'The Tramp').
+auditions(a32, Show5, Don, 'The Tramp').
+
+score(a1, Judy, 7).
+score(a1, Lucy, 8).
+score(a1, Irving, 6).
+score(a2, Judy, 5).
+score(a2, Lucy, 6).
+score(a2, Irving, 6).
+score(a3, Judy, 9).
+score(a3, Lucy, 6).
+score(a3, Irving, 8).
+score(a4, Judy, 4).
+score(a4, Lucy, 5).
+score(a4, Irving, 6).
+score(a5, Judy, 9).
+score(a5, Lucy, 9).
+score(a5, Irving, 7).
+score(a6, Judy, 7).
+score(a6, Lucy, 7).
+score(a6, Irving, 10).
+
+score(a7, Judy, 8).
+score(a7, Phil, 6).
+score(a8, Judy, 3).
+score(a8, Phil, 5).
+score(a9, Judy, 9).
+score(a9, Phil, 10).
+score(a10, Judy, 7).
+score(a10, Phil, 6).
+score(a11, Judy, 8).
+score(a11, Phil, 7).
+score(a12, Judy, 5).
+score(a12, Phil, 5).
+score(a13, Judy, 7).
+score(a13, Phil, 6).
+
+score(a14, Irving, 8).
+score(a14, Phil, 7).
+score(a14, Oscar, 9).
+score(a15, Irving, 7).
+score(a15, Phil, 6).
+score(a15, Oscar, 4).
+score(a16, Irving, 6).
+score(a16, Phil, 8).
+score(a16, Oscar, 7).
+score(a17, Irving, 9).
+score(a17, Phil, 7).
+score(a17, Oscar, 6).
+score(a18, Irving, 8).
+score(a18, Phil, 6).
+score(a18, Oscar, 9).
+
+score(a19, Lucy, 7).
+score(a19, Oscar, 6).
+score(a20, Lucy, 6).
+score(a20, Oscar, 8).
+score(a21, Lucy, 9).
+score(a21, Oscar, 8).
+score(a22, Lucy, 8).
+score(a22, Oscar, 10).
+score(a23, Lucy, 5).
+score(a23, Oscar, 5).
+
+score(a24, Lucy, 3).
+score(a24, Irving, 5).
+score(a24, Phil, 6).
+score(a25, Lucy, 4).
+score(a25, Irving, 6).
+score(a25, Phil, 8).
+score(a26, Lucy, 5).
+score(a26, Irving, 7).
+score(a26, Phil, 10).
+score(a27, Lucy, 6).
+score(a27, Irving, 8).
+score(a27, Phil, 7).
+score(a28, Lucy, 7).
+score(a28, Irving, 9).
+score(a28, Phil, 6).
+score(a29, Lucy, 9).
+score(a29, Irving, 8).
+score(a29, Phil, 8).
+score(a30, Lucy, 8).
+score(a30, Irving, 7).
+score(a30, Phil, 10).
+score(a31, Lucy, 6).
+score(a31, Irving, 6).
+score(a31, Phil, 8).
+score(a32, Lucy, 5).
+score(a32, Irving, 8).
+score(a32, Phil, 7).
+
+/********************
 Query 1: Find all pairs of contestants who happened to audition the same piece
 during the same show and got the same score from at least one judge
 
 Test: pairSameScore(?U1, ?U2, ?_Show, ?_Piece, ?_Score).
-*/
+********************/
 pairSameScore(?U1, ?U2, ?Show, ?Piece, ?Score) :-
-  auditions(?Show, ?U1, ?Piece, ?Judge, ?Score),
-  auditions(?Show, ?U2, ?Piece, ?Judge, ?Score),
+  auditions(?A1, ?Show, ?U1, ?Piece),
+  auditions(?A2, ?Show, ?U2, ?Piece),
+  score(?A1, ?Judge, ?Score),
+  score(?A2, ?Judge, ?Score),
   (?U1 @< ?U2).
 
-/*
+
+/********************
 Query 2: Find all pairs of contestants who happened to audition the same piece
 (in possibly different shows) and got the same average score for that piece
 
@@ -117,28 +201,30 @@ Explanation: averScore is an intermediate relation that computes average score
 of a person on a piece
 
 Test: pairSameAverScore(?U1, ?U2).
-*/
+********************/
 averScore(?Average, ?U, ?Piece) :-
-  ?Average = avg{?_Score[?U, ?Piece] | auditions(?_, ?U, ?Piece, ?_, ?_Score)}.
+  ?Average = avg{?_Score[?U, ?Piece, ?Show] | auditions(?_A, ?Show, ?U, ?Piece), score(?_A, ?_, ?_Score)}.
 
 pairSameAverScore(?U1, ?U2) :-
   averScore(?Average, ?U1, ?_Piece),
   averScore(?Average, ?U2, ?_Piece),
   (?U1 @< ?U2).
 
-/*
+
+/********************
 Query 3: Find all pairs of contestants who auditioned the same piece in
 (possibly different) shows that had at least 3 judges and the two contestants
 got the same highest score.
 
 Explanation:
-*/
 
+Test: pairSameHighScore(?X, ?Y).
+********************/
 showsWithThreeJudges(?Show) :-
   count{?_Judge[?Show] | judgeShow(?Show, ?_Judge)} >= 3.
 
 highScore(?Show, ?U, ?Piece, ?Max) :-
-  ?Max = max{ ?_Score[?Show, ?U, ?Piece] | auditions(?Show, ?U, ?Piece, ?_, ?_Score)}.
+  ?Max = max{ ?_Score[?Show, ?U, ?Piece] | auditions(?_A, ?Show, ?U, ?Piece), score(?_A, ?_, ?_Score)}.
 
 pairSameHighScore(?U1, ?U2) :-
   highScore(?Show1, ?U1, ?Piece, ?Max),
@@ -148,48 +234,56 @@ pairSameHighScore(?U1, ?U2) :-
   (?U1 @< ?U2).
 
 
-/*
+/********************
 Query 4: Find all pairs of contestants such that the first contestants has
 performed all the pieces of the second contestant (possible in different shows)
 
-Test: piecesSubsetOf(?U1, ?U2).
-*/
-
-//without quantifiers
-piecesOf(?U, ?Piece) :-
-  auditions(?_, ?U, ?Piece, ?_, ?_).
-
-pairUsers(?U1, ?U2) :-
+Test: (4a) true{piecesSubsetOfNoQ(?U1, ?U2)}.
+(4b) piecesSubsetOf(?U1, ?U2).
+********************/
+//(4a) without quantifiers
+onlyOne(?Piece, ?U1, ?U2) :-
   contestants(?U1),
   contestants(?U2),
+  auditions(?_, ?_, ?U2, ?Piece),
+  \naf (auditions(?_, ?_, ?U1, ?Piece)).
+
+piecesSubsetOfNoQ(?U1, ?U2) :-
+  contestants(?U1),
+  contestants(?U2),
+  \naf onlyOne(?_Piece, ?U1, ?U2),
   ?U1 != ?U2.
 
-pieces(?Piece) :-
-  auditions(?_, ?_, ?Piece, ?_, ?_).
-
-test(?Piece, ?U1, ?U2) :-
-  piecesOf(?U1, ?Piece),
-  \naf piecesOf(?U2, ?Piece).
-
-//using explicit quantifiers (forall)
+//(4b) using explicit quantifiers (forall)
 piecesSubsetOf(?U1, ?U2) :-
   contestants(?U1),
   contestants(?U2),
   (?U1 != ?U2),
   forall(?Piece)^(
-    auditions(?_, ?U2, ?Piece, ?_, ?_) ~~>
-      auditions(?_, ?U1, ?Piece, ?_, ?_)
+    auditions(?_, ?_, ?U2, ?Piece) ~~>
+      auditions(?_, ?_, ?U1, ?Piece)
   ).
 
 /*
+test(?U1, ?U2) :-
+  contestants(?U1),
+  contestants(?U2),
+  forall(?Piece1)^(
+    auditions(?_, ?U2, ?Piece1, ?_, ?_),
+    auditions(?_, ?U1, ?Piece1, ?_, ?_)
+  ).
+*/
+
+
+/********************
 Query 5: A chained co-auditions is the transitive closure of the following
 binary relation: X and Y (directly) co-auditioned iff they both performed the
 same piece in the same show and got the same score from at lest one (same) judge.
 
-Test:
-*/
-
+Test: coaudition(?U1, ?U2).
+********************/
 coaudition(?U1, ?U2) :- pairSameScore(?U1, ?U2, ?_Show, ?_Piece, ?_Score).
 coaudition(?U1, ?U3) :-
   pairSameScore(?U1, ?U2, ?_Show, ?_Piece, ?_Score),
-  coaudition(?U2, ?U3).
+  (coaudition(?U2, ?U3); coaudition(?U3, ?U2)),
+  (?U1 @< ?U3).
