@@ -11,18 +11,23 @@
 Database Schema
   contestants(Name).
   Key: Name
+  Type: Name[String]
 
   shows(Date, ShowName).
   Key: Date
+  Type: Date[Integer], ShowName[String]
 
   judgeShow(ShowName, Judge).
   Key: {ShowName, Judge}
+  Type: ShowName[String], Judge[String]
 
   auditions{AuditionName, ShowName, Name, Piece}.
   Key: AuditionName
+  Type: AuditionName[String], ShowName[String], Name[String], Piece[String]
 
   scores(AuditionName, Judge, Score)
   Key: {AuditionName, Judge}
+  Type: AuditionName[String], Judge[String], Score[Integer]
 ********************/
 
 contestants(Joe).
@@ -183,9 +188,11 @@ score(a32, Phil, 7).
 Query 1: Find all pairs of contestants who happened to audition the same piece
 during the same show and got the same score from at least one judge
 
-Test: pairSameScore(?U1, ?U2, ?_Show, ?_Piece, ?_Score).
+Explanation: (?U1 @< ?U2) makes sure that we are not repeating the pair
+
+Test: pairSameScoreSameJudge(?U1, ?U2, ?_Show, ?_Piece, ?_Score).
 ********************/
-pairSameScore(?U1, ?U2, ?Show, ?Piece, ?Score) :-
+pairSameScoreSameJudge(?U1, ?U2, ?Show, ?Piece, ?Score) :-
   auditions(?A1, ?Show, ?U1, ?Piece),
   auditions(?A2, ?Show, ?U2, ?Piece),
   score(?A1, ?Judge, ?Score),
@@ -198,7 +205,10 @@ Query 2: Find all pairs of contestants who happened to audition the same piece
 (in possibly different shows) and got the same average score for that piece
 
 Explanation: averScore is an intermediate relation that computes average score
-of a person on a piece
+of a person on a particular piece
+
+pairSameAverScore makes use of averScore so that we can equate the average score
+of two different contestants
 
 Test: pairSameAverScore(?U1, ?U2).
 ********************/
@@ -216,7 +226,11 @@ Query 3: Find all pairs of contestants who auditioned the same piece in
 (possibly different) shows that had at least 3 judges and the two contestants
 got the same highest score.
 
-Explanation:
+Explanation: highScore computes the max score of a person on a particular piece
+for a particular show
+
+pairSameHighScore determines the pair of contestants that achieves the same maximum
+score using highScore from the shows with at least 3 judges using showsWithThreeJudges
 
 Test: pairSameHighScore(?X, ?Y).
 ********************/
@@ -238,24 +252,32 @@ pairSameHighScore(?U1, ?U2) :-
 Query 4: Find all pairs of contestants such that the first contestants has
 performed all the pieces of the second contestant (possible in different shows)
 
-Test: (4a) true{piecesSubsetOfNoQ(?U1, ?U2)}.
-(4b) piecesSubsetOf(?U1, ?U2).
+Explanation: With quantifier, we check for all pieces whether U1 plays every piece that U2 plays.
+The imply operator is a if-condition. If U2 plays it, U1 should play it as well.
+
+Without the uses of quantifier, the statement is equivalent to 'there does not exist
+a piece that U2 plays it but U1 does not play it'. So U2NotU1 defines the intermediate
+relation that U2 plays a piece that U1 does not. Then the rule U1DominatesU2NoQ
+will have a negation as failure on that.
+
+Test: (4a) U1DominatesU2NoQ(?U1, ?U2).
+      (4b) U1DominatesU2(?U1, ?U2).
 ********************/
 //(4a) without quantifiers
-onlyOne(?Piece, ?U1, ?U2) :-
+U2NotU1(?U1, ?U2) :-
   contestants(?U1),
   contestants(?U2),
-  auditions(?_, ?_, ?U2, ?Piece),
-  \naf (auditions(?_, ?_, ?U1, ?Piece)).
+  auditions(?_, ?_, ?U2, ?_Piece),
+  \naf (auditions(?_, ?_, ?U1, ?_Piece)).
 
-piecesSubsetOfNoQ(?U1, ?U2) :-
+U1DominatesU2NoQ(?U1, ?U2) :-
   contestants(?U1),
   contestants(?U2),
-  \naf onlyOne(?_Piece, ?U1, ?U2),
+  \naf U2NotU1(?U1, ?U2),
   ?U1 != ?U2.
 
 //(4b) using explicit quantifiers (forall)
-piecesSubsetOf(?U1, ?U2) :-
+U1DominatesU2(?U1, ?U2) :-
   contestants(?U1),
   contestants(?U2),
   (?U1 != ?U2),
@@ -264,26 +286,31 @@ piecesSubsetOf(?U1, ?U2) :-
       auditions(?_, ?_, ?U1, ?Piece)
   ).
 
-/*
-test(?U1, ?U2) :-
-  contestants(?U1),
-  contestants(?U2),
-  forall(?Piece1)^(
-    auditions(?_, ?U2, ?Piece1, ?_, ?_),
-    auditions(?_, ?U1, ?Piece1, ?_, ?_)
-  ).
-*/
-
 
 /********************
 Query 5: A chained co-auditions is the transitive closure of the following
 binary relation: X and Y (directly) co-auditioned iff they both performed the
 same piece in the same show and got the same score from at lest one (same) judge.
 
+Explanation: We use recursive query to compute the transitive closure of the binary
+relation pairSameScore. The first one is the base case. Then we use recursion until
+the size of the set stops growing
+
 Test: coaudition(?U1, ?U2).
 ********************/
-coaudition(?U1, ?U2) :- pairSameScore(?U1, ?U2, ?_Show, ?_Piece, ?_Score).
+coaudition(?U1, ?U2) :- pairSameScoreSameJudge(?U1, ?U2, ?_Show, ?_Piece, ?_Score).
 coaudition(?U1, ?U3) :-
-  pairSameScore(?U1, ?U2, ?_Show, ?_Piece, ?_Score),
+  pairSameScoreSameJudge(?U1, ?U2, ?_Show, ?_Piece, ?_Score),
   (coaudition(?U2, ?U3); coaudition(?U3, ?U2)),
   (?U1 @< ?U3).
+
+
+/********************
+The queries will be executed immediately once you type "[tss]."
+********************/
+?- pairSameScoreSameJudge(?U1, ?U2, ?_Show, ?_Piece, ?_Score).
+?- pairSameAverScore(?U1, ?U2).
+?- pairSameHighScore(?X, ?Y).
+?- U1DominatesU2NoQ(?U1, ?U2).
+?- U1DominatesU2(?U1, ?U2).
+?- coaudition(?U1, ?U2).
