@@ -1,4 +1,4 @@
--- query 1: Find all pairs of contestants who happened to audition the same piece
+-- Query 1: Find all pairs of contestants who happened to audition the same piece
 -- during the same show and got the same score from at least one judge
 
 SELECT C1.name, C2.name
@@ -15,7 +15,7 @@ WHERE SP1.show = SP2.show AND
   P1.results && P2.results
 ;
 
--- Find all pairs of contestants who happened to audition the same piece
+-- Query 2: Find all pairs of contestants who happened to audition the same piece
 -- (in possibly different shows) and got the same average score for that piece.
 SELECT C1.name, C2.name
 FROM Contestants C1, Contestants C2,
@@ -27,7 +27,7 @@ WHERE P1.piece = P2.piece AND
   ( SELECT avg(r.score) FROM unnest(P1.results) r) = ( SELECT avg(r.score) FROM unnest(P2.results) r)
 ;
 
--- Find all pairs of contestants who auditioned the same piece in (possibly different) shows that
+-- Query 3: Find all pairs of contestants who auditioned the same piece in (possibly different) shows that
 -- had at least 3 judges and the two contestants got the same highest score.
 CREATE VIEW Shows3Judges AS
   SELECT oid, showdate
@@ -56,16 +56,49 @@ WHERE S1.oid = SP1.show AND
   ( SELECT max(r.score) FROM unnest(P1.results) r) = ( SELECT max(r.score) FROM unnest(P2.results) r)
 ;
 
--- Find all pairs of contestants such that the first contestants has performed all the pieces of the
--- second contestant (possibly in different shows)
+-- Query 4: Find all pairs of contestants such that the first contestants has performed all the pieces of the
+-- second contestant (possibly in different shows) C1 dominates C2
+SELECT C1.name, C2.name
+FROM Contestants C1, Contestants C2
+WHERE
+  EXISTS(
+    (
+      SELECT piece
+      FROM Performances P
+      WHERE P.contestant = C1.oid
+    )
+    EXCEPT
+    (
+      SELECT piece
+      FROM Performances P
+      WHERE P.contestant = C2.oid
+    )
+  ) AND NOT EXISTS(
+    (
+      SELECT piece
+      FROM Performances P
+      WHERE P.contestant = C2.oid
+    )
+    EXCEPT
+    (
+      SELECT piece
+      FROM Performances P
+      WHERE P.contestant = C1.oid
+    )
+  )
+;
 
--- SELECT
--- FROM
--- WHERE EXISTS
---   ()
---   MINUS
---   ()
-
--- Find all chained co-auditions
+-- Query 5: Find all chained co-auditions
 -- X and Y (directly) co-auditioned iff they both performed the same piece in the
 -- same show and got the same score from at least one (same) judge.
+
+-- WITH RECURSIVE coaudition AS (
+--     SELECT C1.name, C2.name
+--     FROM
+--     WHERE
+--   UNION ALL
+--     SELECT x.name, x1.name
+--     FROM coaudition x, contestants x1
+--     WHERE
+-- )
+-- SELECT * FROM coaudition;
