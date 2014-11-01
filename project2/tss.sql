@@ -16,11 +16,11 @@ CREATE VIEW Direct_Coaudition AS (
 	  P1.results && P2.results
 );
 
-SELECT * FROM Direct_Coaudition WHERE name1 < name2;
+SELECT * FROM Direct_Coaudition;
 
 -- Query 2: Find all pairs of contestants who happened to audition the same piece
 -- (in possibly different shows) and got the same average score for that piece.
-SELECT C1.name, C2.name
+SELECT C1.name AS name1, C2.name AS name2
 FROM Contestants C1, Contestants C2,
   Performances P1, Performances P2
 WHERE P1.piece = P2.piece AND
@@ -43,7 +43,7 @@ CREATE VIEW Shows3Judges AS
       array_length(P.results, 1) > 2
   );
 
-SELECT C1.name, C2.name
+SELECT C1.name AS name1, C2.name AS name2
 FROM Contestants C1, Contestants C2,
   Shows3Judges S1, Shows3Judges S2,
   Show_Performances SP1, Show_Performances SP2,
@@ -61,7 +61,7 @@ WHERE S1.oid = SP1.show AND
 
 -- Query 4: Find all pairs of contestants such that the first contestants has performed all the pieces of the
 -- second contestant (possibly in different shows) C1 dominates C2
-SELECT C1.name, C2.name
+SELECT C1.name AS name1, C2.name AS name2
 FROM Contestants C1, Contestants C2
 WHERE
   EXISTS(
@@ -108,15 +108,14 @@ WHERE
 
 CREATE RECURSIVE VIEW Coaudition (name1, name2) AS (
 	SELECT *
-	FROM Direct_Coaudition	
+	FROM Direct_Coaudition
   UNION ALL
 	SELECT C1.name1,C2.name2
 	FROM Coaudition C1, Direct_Coaudition C2
 	WHERE C1.name2 = C2.name1 AND C1.name1 != C2.name2 AND NOT EXISTS(
 		SELECT C.name1, C.name2
-		FROM Coaudition C
+		FROM Direct_Coaudition C
 		WHERE C.name1 = C1.name1 and C.name2 = C2.name2
 	)
 );
 SELECT * FROM Coaudition C WHERE C.name1<C.name2;
-	

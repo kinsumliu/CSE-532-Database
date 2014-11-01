@@ -11,12 +11,6 @@ CREATE TYPE ResultType AS (
 	score integer
 );
 
--- CREATE TYPE PerformanceType AS (
--- 	contestant REF(PersonType) SCOPE Contestants
---	piece REF(PieceType) SCOPE Pieces
--- 	results ROW(judge REF(PersonType) SCOPE Judges, score integer CHECK(score > 0) ) MULTISET
--- );
-
 CREATE TYPE PerformanceType AS (
 	Contestant oid,
 	Piece oid,
@@ -29,17 +23,20 @@ CREATE TYPE ShowType AS (
 
 CREATE TABLE Contestants OF PersonType (
 	UNIQUE(name),
-	PRIMARY KEY (oid)
+	PRIMARY KEY (oid),
+	name WITH OPTIONS CHECK (char_length(name) > 0)
 ) WITH (OIDS);
 
 CREATE TABLE Judges OF PersonType (
 	UNIQUE(name),
-	PRIMARY KEY (oid)
+	PRIMARY KEY (oid),
+	name WITH OPTIONS CHECK (char_length(name) > 0)
 ) WITH (OIDS);
 
 CREATE TABLE Pieces OF PieceType(
 	UNIQUE(name),
-	PRIMARY KEY (oid)
+	PRIMARY KEY (oid),
+	name WITH OPTIONS CHECK (char_length(name) > 0)
 ) WITH (OIDS);
 
 CREATE TABLE Performances OF PerformanceType (
@@ -49,6 +46,7 @@ CREATE TABLE Performances OF PerformanceType (
 ) WITH (OIDS);
 
 CREATE TABLE Shows OF ShowType(
+	UNIQUE(showdate),
 	PRIMARY KEY (oid)
 ) WITH (OIDS);
 
