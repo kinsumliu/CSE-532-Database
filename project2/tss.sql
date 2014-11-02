@@ -16,7 +16,7 @@ CREATE VIEW Direct_Coaudition AS (
 	  P1.results && P2.results
 );
 
-SELECT * FROM Direct_Coaudition;
+SELECT * FROM Direct_Coaudition WHERE name1<name2;
 
 -- Query 2: Find all pairs of contestants who happened to audition the same piece
 -- (in possibly different shows) and got the same average score for that piece.
@@ -94,17 +94,6 @@ WHERE
 -- Query 5: Find all chained co-auditions
 -- X and Y (directly) co-auditioned iff they both performed the same piece in the
 -- same show and got the same score from at least one (same) judge.
-
--- WITH RECURSIVE coaudition AS (
---     SELECT C1.name, C2.name
---     FROM
---     WHERE
---   UNION ALL
---     SELECT x.name, x1.name
---     FROM coaudition x, contestants x1
---     WHERE
--- )
--- SELECT * FROM coaudition;
 
 CREATE RECURSIVE VIEW Coaudition (name1, name2) AS (
 	SELECT *
