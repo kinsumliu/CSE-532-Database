@@ -27,7 +27,6 @@ WHERE P1.piece = P2.piece AND
 
 -- Query 3: Find all pairs of contestants who auditioned the same piece in (possibly different) shows that
 -- had at least 3 judges and the two contestants got the same highest score.
-
 SELECT C1.name AS name1, C2.name AS name2
 FROM Contestants C1, Contestants C2,
   Shows3Judges S1, Shows3Judges S2,
