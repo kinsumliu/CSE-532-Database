@@ -1,3 +1,17 @@
+/***********************************************************
+							CSE532 - Project 2
+		File name: tss_schema.sql
+		Authors: Kin Sum Liu (109247869)
+							Hao-Tsung Yang (109892492)
+		Brief description: This file contains the definitions of
+			user-defined types, creation of tables and views. The
+			views are useful for query 1 and query 5
+
+We pledge our honor that all parts of this project were done
+by us alone and without collaboration with anybody else
+
+***********************************************************/
+
 CREATE TYPE PersonType AS (
 	name text
 );

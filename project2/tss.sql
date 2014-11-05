@@ -1,3 +1,17 @@
+/***********************************************************
+              CSE532 - Project 2
+    File name: tss_schema.sql
+    Authors: Kin Sum Liu (109247869)
+              Hao-Tsung Yang (109892492)
+    Brief description: This file contains the five required
+      queries. Query 1 and 5 depends on the view created
+      in the tss_schema.sql
+
+We pledge our honor that all parts of this project were done
+by us alone and without collaboration with anybody else
+
+***********************************************************/
+
 -- Query 1: Find all pairs of contestants who happened to audition the same piece
 -- during the same show and got the same score from at least one judge
 SELECT * FROM Direct_Coaudition WHERE name1 < name2;
