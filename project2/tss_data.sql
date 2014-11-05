@@ -1,10 +1,8 @@
 /***********************************************************
               CSE532 - Project 2
     File name: tss_data.sql
-    Authors: Kin Sum Liu (109247869)
-              Hao-Tsung Yang (109892492)
-    Brief description: This file contains the SQL queries
-      to insert the necessary data for the system
+    Authors: Kin Sum Liu (109247869) Hao-Tsung Yang (109892492)
+    Brief description: This file contains the SQL queries to insert the necessary data for the system
 
 We pledge our honor that all parts of this project were done
 by us alone and without collaboration with anybody else
