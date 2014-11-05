@@ -85,12 +85,9 @@ CREATE VIEW Direct_Coaudition AS (
 CREATE RECURSIVE VIEW Coaudition (name1, name2) AS (
 	SELECT *
 	FROM Direct_Coaudition
-  UNION ALL
+  UNION
 	SELECT C1.name1,C2.name2
 	FROM Coaudition C1, Direct_Coaudition C2
-	WHERE C1.name2 = C2.name1 AND C1.name1 != C2.name2 AND NOT EXISTS(
-		SELECT C.name1, C.name2
-		FROM Direct_Coaudition C
-		WHERE C.name1 = C1.name1 and C.name2 = C2.name2
-	)
+	WHERE C1.name2 = C2.name1 AND
+		C1.name1 != C2.name2
 );

@@ -1,7 +1,6 @@
 -- Query 1: Find all pairs of contestants who happened to audition the same piece
 -- during the same show and got the same score from at least one judge
-
-SELECT * FROM Direct_Coaudition WHERE name1<name2;
+SELECT * FROM Direct_Coaudition WHERE name1 < name2;
 
 -- Query 2: Find all pairs of contestants who happened to audition the same piece
 -- (in possibly different shows) and got the same average score for that piece.
@@ -35,39 +34,25 @@ WHERE S1.oid = SP1.show AND
 ;
 
 -- Query 4: Find all pairs of contestants such that the first contestants has performed all the pieces of the
--- second contestant (possibly in different shows) C1 dominates C2
+-- second contestant (possibly in different shows)
 SELECT C1.name AS name1, C2.name AS name2
 FROM Contestants C1, Contestants C2
 WHERE
-  EXISTS(
+  NOT EXISTS(
     (
-      SELECT piece
-      FROM Performances P
-      WHERE P.contestant = C1.oid
+        SELECT piece
+        FROM Performances P
+        WHERE P.contestant = C2.oid
+    ) EXCEPT (
+        SELECT piece
+        FROM Performances P
+        WHERE P.contestant = C1.oid
     )
-    EXCEPT
-    (
-      SELECT piece
-      FROM Performances P
-      WHERE P.contestant = C2.oid
-    )
-  ) AND NOT EXISTS(
-    (
-      SELECT piece
-      FROM Performances P
-      WHERE P.contestant = C2.oid
-    )
-    EXCEPT
-    (
-      SELECT piece
-      FROM Performances P
-      WHERE P.contestant = C1.oid
-    )
-  )
+  ) AND
+  C1.name != C2.name
 ;
 
 -- Query 5: Find all chained co-auditions
 -- X and Y (directly) co-auditioned iff they both performed the same piece in the
 -- same show and got the same score from at least one (same) judge.
-
-SELECT * FROM Coaudition C WHERE C.name1<C.name2;
+SELECT * FROM Coaudition C WHERE C.name1 < C.name2;
