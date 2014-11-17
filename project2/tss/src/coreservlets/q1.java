@@ -1,3 +1,9 @@
+/****************************************************************************
+ *                 CSE532 -- Project 2
+ * File name: q1.java
+ * Author(s): Kin Sum Liu (109247869), Hao-Tsung Yang (109892492)
+ * Brief description: Servlet to execute Query 1 and create the html to display the result
+ ****************************************************************************/
 package coreservlets;
 
 import java.io.*;
