@@ -3,4 +3,16 @@
         <!-- default ns for instance doc -->
         <!-- ns for XML schema names that occur in instance doc -->
         <!-- schemaLocation says: the schema for ns is found in xxx.xsd -->
+    <Show ShowName="Show1">
+        <ShowDate>2010-01-01</ShowDate>
+        <Audition>
+            <Contestant>Alice</Contestant>
+        </Audition>
+        <Audition>
+            <Contestant>Bob</Contestant>
+        </Audition>
+    </Show>
+    <Show ShowName="Show2">
+        <ShowDate>2011-01-01</ShowDate>
+    </Show>
 </Shows>
