@@ -1,3 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<contestant> Bob
-</contestant>
+<Shows xmlns="http://localhost:8080/exist/apps/tss-collection" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://localhost:8080/exist/apps/tss-collection tss_schema.xsd">
+        <!-- default ns for instance doc -->
+        <!-- ns for XML schema names that occur in instance doc -->
+        <!-- schemaLocation says: the schema for ns is found in xxx.xsd -->
+</Shows>
