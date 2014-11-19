@@ -15,23 +15,27 @@
     <element name="Score" type="tss:scoreType"/>
     
     <!-- Definition of complex elements -->
+    <element name="Result" minOccurs="1" maxOccurs="unbounded">
+        <complexType>
+            <sequence>
+                <element ref="Score" maxOccurs="1"/>
+                <element ref="Judge" maxOccurs="1"/>
+            </sequence>
+        </complexType>
+    </element>
+    <element name="Results">
+        <complexType>
+            <sequence>
+                <element ref="Result"/>
+            </sequence>
+        </complexType>
+    </element>
     <element name="Audition">
         <complexType>
             <sequence>
                 <element ref="Contestant" maxOccurs="1"/>
                 <element ref="Piece" maxOccurs="1"/>
-                <element name="Results">
-                    <complexType>
-                        <sequence>
-                            <element name="Result" minOccurs="1" maxOccurs="unbounded">
-                                <sequence>
-                                    <element ref="Score" maxOccurs="1"/>
-                                    <element ref="Judge" maxOccurs="1"/>
-                                </sequence>
-                            </element>
-                        </sequence>
-                    </complexType>
-                </element>
+                <element ref="Results"/>
             </sequence>
         </complexType>
     </element>

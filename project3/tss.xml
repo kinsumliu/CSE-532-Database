@@ -14,5 +14,8 @@
     </Show>
     <Show ShowName="Show2">
         <ShowDate>2011-01-01</ShowDate>
+        <Audition>
+            <Contestant>David</Contestant>
+        </Audition>
     </Show>
 </Shows>
