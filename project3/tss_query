@@ -1,0 +1,4 @@
+xquery version "3.0";
+declare default element namespace "http://localhost:8080/exist/apps/tss-collection";
+
+doc("/db/apps/tss-collection/tss.xml")/Shows/Show/Audition/Contestant
