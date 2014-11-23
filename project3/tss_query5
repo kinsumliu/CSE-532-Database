@@ -20,14 +20,17 @@ declare function local:directCoaudition($contestant as element()*) as element()*
                 $result1/Judge = $result2/Judge and
                 $result1/Score = $result2/Score and
                 $audition1/Piece = $audition2/Piece and
-                $audition1/Contestant < $audition2/Contestant 
+                $audition1/Contestant != $audition2/Contestant 
         return $audition2/Contestant
 };
 
-declare function local:indirectCoaudition($contestant as element()*) as element()*{
-  let $direct := local:directCoaudition($contestant)
-  for $other in $direct
-  return $direct | local:indirectCoaudition($other)
+declare function local:indirectCoaudition($contestant as element()*, $visited as element()*) as element()*{
+    let $direct := local:directCoaudition($contestant)
+    for $other in $direct
+    return 
+        if ($other intersect $visited)
+            then <cycle/>
+        else ($direct | local:indirectCoaudition($other, $visited|$other))
 };
 
 let $tss := doc("/db/apps/tss-collection/tss.xml")/TSS
@@ -37,6 +40,9 @@ return
         for $contestant1 in distinct-values(
             for $audition in $tss/Show/Audition
             return local:extractContestants($audition))
-(:        return <Contestant>{$contestant1}</Contestant>:)
-        return <result>{concat( $contestant1, " coaudits with ", local:directCoaudition(<Contestant>{$contestant1}</Contestant>))}</result>
+        where local:directCoaudition(<Contestant>{$contestant1}</Contestant>)
+        return 
+            for $other in distinct-values(local:indirectCoaudition(<Contestant>{$contestant1}</Contestant>, <Contestant>{$contestant1}</Contestant>))
+            where $contestant1 < $other
+            return <result>{concat( $contestant1, " coaudits with ", $other)}</result>
     }</query5>
