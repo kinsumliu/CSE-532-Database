@@ -18,15 +18,15 @@
     <element name="Result" minOccurs="1" maxOccurs="unbounded">
         <complexType>
             <sequence>
-                <element ref="Score" maxOccurs="1"/>
                 <element ref="Judge" maxOccurs="1"/>
+                <element ref="Score" maxOccurs="1"/>
             </sequence>
         </complexType>
     </element>
     <element name="Results">
         <complexType>
             <sequence>
-                <element ref="Result"/>
+                <element ref="Result" maxOccurs="unbounded"/>
             </sequence>
         </complexType>
     </element>
@@ -50,7 +50,7 @@
     </element>
     
     <!-- Definition of root element (Shows List) -->
-    <element name="Shows">
+    <element name="TSS">
         <complexType>
             <sequence>
                 <element ref="Show" maxOccurs="unbounded"/>

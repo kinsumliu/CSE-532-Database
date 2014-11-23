@@ -1,21 +1,124 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<Shows xmlns="http://localhost:8080/exist/apps/tss-collection" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://localhost:8080/exist/apps/tss-collection tss_schema.xsd">
+<TSS xmlns="http://localhost:8080/exist/apps/tss-collection" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://localhost:8080/exist/apps/tss-collection tss_schema.xsd">
         <!-- default ns for instance doc -->
         <!-- ns for XML schema names that occur in instance doc -->
         <!-- schemaLocation says: the schema for ns is found in xxx.xsd -->
     <Show ShowName="Show1">
-        <ShowDate>2010-01-01</ShowDate>
+        <ShowDate>2014-02-02</ShowDate>
         <Audition>
-            <Contestant>Alice</Contestant>
+            <Contestant>Joe</Contestant>
+            <Piece>Barcarolle</Piece>
+            <Results>
+                <Result>
+                    <Judge>Judy</Judge>
+                    <Score>7</Score>
+                </Result>
+                <Result>
+                    <Judge>Lucy</Judge>
+                    <Score>8</Score>
+                </Result>
+                <Result>
+                    <Judge>Irving</Judge>
+                    <Score>6</Score>
+                </Result>
+            </Results>
         </Audition>
         <Audition>
-            <Contestant>Bob</Contestant>
+            <Contestant>Mary</Contestant>
+            <Piece>Barcarolle</Piece>
+            <Results>
+                <Result>
+                    <Judge>Judy</Judge>
+                    <Score>5</Score>
+                </Result>
+                <Result>
+                    <Judge>Lucy</Judge>
+                    <Score>6</Score>
+                </Result>
+                <Result>
+                    <Judge>Irving</Judge>
+                    <Score>6</Score>
+                </Result>
+            </Results>
+        </Audition>
+        <Audition>
+            <Contestant>Mary</Contestant>
+            <Piece>Giselle</Piece>
+            <Results>
+                <Result>
+                    <Judge>Judy</Judge>
+                    <Score>9</Score>
+                </Result>
+                <Result>
+                    <Judge>Lucy</Judge>
+                    <Score>6</Score>
+                </Result>
+                <Result>
+                    <Judge>Irving</Judge>
+                    <Score>8</Score>
+                </Result>
+            </Results>
+        </Audition>
+        <Audition>
+            <Contestant>Bess</Contestant>
+            <Piece>Besame Mucho</Piece>
+            <Results>
+                <Result>
+                    <Judge>Judy</Judge>
+                    <Score>4</Score>
+                </Result>
+                <Result>
+                    <Judge>Lucy</Judge>
+                    <Score>5</Score>
+                </Result>
+                <Result>
+                    <Judge>Irving</Judge>
+                    <Score>6</Score>
+                </Result>
+            </Results>
+        </Audition>
+        <Audition>
+            <Contestant>Don</Contestant>
+            <Piece>Besame Mucho</Piece>
+            <Results>
+                <Result>
+                    <Judge>Judy</Judge>
+                    <Score>9</Score>
+                </Result>
+                <Result>
+                    <Judge>Lucy</Judge>
+                    <Score>9</Score>
+                </Result>
+                <Result>
+                    <Judge>Irving</Judge>
+                    <Score>7</Score>
+                </Result>
+            </Results>
+        </Audition>
+        <Audition>
+            <Contestant>Don</Contestant>
+            <Piece>Swan Lake</Piece>
+            <Results>
+                <Result>
+                    <Judge>Judy</Judge>
+                    <Score>7</Score>
+                </Result>
+                <Result>
+                    <Judge>Lucy</Judge>
+                    <Score>7</Score>
+                </Result>
+                <Result>
+                    <Judge>Irving</Judge>
+                    <Score>10</Score>
+                </Result>
+            </Results>
         </Audition>
     </Show>
     <Show ShowName="Show2">
         <ShowDate>2011-01-01</ShowDate>
         <Audition>
             <Contestant>David</Contestant>
+            <Piece>Swan Lake</Piece>
         </Audition>
     </Show>
-</Shows>
+</TSS>
