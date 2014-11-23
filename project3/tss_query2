@@ -1,0 +1,15 @@
+xquery version "3.0";
+declare default element namespace "http://localhost:8080/exist/apps/tss-collection";
+let $tss := doc("/db/apps/tss-collection/tss.xml")/TSS
+
+return
+    <query2>
+    {
+        for $show1 in $tss/Show, $audition1 in $show1/Audition
+        return 
+            for $show2 in $tss/Show, $audition2 in $show2/Audition
+            where $audition1/Contestant < $audition2/Contestant and
+                $audition1/Piece = $audition2/Piece and
+                avg($audition1/Results/Result/Score) = avg($audition2/Results/Result/Score)
+            return <result>{concat($audition1/Contestant, ' and ', $audition2/Contestant)}</result>
+    }</query2>
