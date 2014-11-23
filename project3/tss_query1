@@ -5,9 +5,9 @@ let $tss := doc("/db/apps/tss-collection/tss.xml")/TSS
 return
     <query1>
     {
-        for $show1 in $tss/Show, $audition1 in $show1/Audition, $result1 in $audition1/Results/Result
+        for $audition1 in $tss/Show/Audition, $result1 in $audition1/Results/Result
         return 
-            for $show2 in $tss/Show, $audition2 in $show2/Audition, $result2 in $audition2/Results/Result
+            for $audition2 in $tss/Show/Audition, $result2 in $audition2/Results/Result
             where $result1/Judge = $result2/Judge and
                     $result1/Score = $result2/Score and
                     $audition1/Piece = $audition2/Piece and
