@@ -1,0 +1,34 @@
+xquery version "3.0";
+declare default element namespace "http://localhost:8080/exist/apps/tss-collection";
+
+declare function local:extractContestants($audition as element()*) as element()* {
+    for $contestant in $audition/Contestant
+    return $contestant
+};
+
+declare function local:whatever($contestant1 as element(), $contestant2 as element()) as element()*{
+    let $tss := doc("/db/apps/tss-collection/tss.xml")/TSS,
+        $contestant2Pieces :=
+            for $audition2 in $tss/Show/Audition
+            where $audition2/Contestant = $contestant2
+            return $audition2/Piece
+    for $piece in $contestant2Pieces
+    where (empty($tss/Show/Audition[Piece = $piece and Contestant = $contestant1]))
+    return $piece
+};
+
+let $tss := doc("/db/apps/tss-collection/tss.xml")/TSS
+return
+    <query4>
+    {
+        for $contestant1 in distinct-values(
+             for $audition in $tss/Show/Audition
+             return local:extractContestants($audition))
+        return 
+            for $contestant2 in distinct-values(
+                for $audition in $tss/Show/Audition
+                return local:extractContestants($audition))
+            where empty(local:whatever(<Contestant>{$contestant1}</Contestant>, <Contestant>{$contestant2}</Contestant>)) and
+                $contestant1 != $contestant2
+            return <result>{concat($contestant1, ' dominates ', $contestant2)}</result>
+    }</query4>
