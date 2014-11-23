@@ -12,17 +12,16 @@ return
     {
         for $contestant1 in distinct-values(
              for $audition in $tss/Show/Audition
-             return local:extractContestants($audition)),
-            $contestant2 in distinct-values(
-             for $audition in $tss/Show/Audition
              return local:extractContestants($audition))
-        let $contestant2Pieces :=
-            for $audition2 in $tss/Show/Audition
-            where $audition2/Contestant = $contestant2
-            return $audition2/Piece
         return 
-            for $audition1 in $tss/Show/Audition
-            where every $piece in $contestant2Pieces satisfies $audition1/Piece = $piece
-                and $audition1/Contestant = $contestant1
+            for $contestant2 in distinct-values(
+                for $audition in $tss/Show/Audition
+                return local:extractContestants($audition))
+            let $contestant2Pieces :=
+                for $audition2 in $tss/Show/Audition
+                where $audition2/Contestant = $contestant2
+                return $audition2/Piece
+            where every $piece in $contestant2Pieces satisfies not(empty($tss/Show/Audition[Piece = $piece and Contestant = $contestant1])) and
+                $contestant2 != $contestant1
             return <result>{concat($contestant1, ' dominates ', $contestant2)}</result>
     }</query4>
