@@ -3,6 +3,7 @@
         <!-- default ns for instance doc -->
         <!-- ns for XML schema names that occur in instance doc -->
         <!-- schemaLocation says: the schema for ns is found in xxx.xsd -->
+    <!-- Show 1 -->
     <Show ShowName="Show1">
         <ShowDate>2014-02-02</ShowDate>
         <Audition>
@@ -114,11 +115,248 @@
             </Results>
         </Audition>
     </Show>
+    
+    <!-- Show2 -->
     <Show ShowName="Show2">
-        <ShowDate>2011-01-01</ShowDate>
+        <ShowDate>2014-04-02</ShowDate>
         <Audition>
-            <Contestant>David</Contestant>
+            <Contestant>Bob</Contestant>
             <Piece>Swan Lake</Piece>
+            <Results>
+                <Result>
+                    <Judge>Judy</Judge>
+                    <Score>8</Score>
+                </Result>
+                <Result>
+                    <Judge>Phil</Judge>
+                    <Score>6</Score>
+                </Result>
+            </Results>
+        </Audition>
+        <Audition>
+            <Contestant>Mary</Contestant>
+            <Piece>Habanera</Piece>
+            <Results>
+                <Result>
+                    <Judge>Judy</Judge>
+                    <Score>3</Score>
+                </Result>
+                <Result>
+                    <Judge>Phil</Judge>
+                    <Score>5</Score>
+                </Result>
+            </Results>
+        </Audition>
+        <Audition>
+            <Contestant>Mary</Contestant>
+            <Piece>Besame Mucho</Piece>
+            <Results>
+                <Result>
+                    <Judge>Judy</Judge>
+                    <Score>9</Score>
+                </Result>
+                <Result>
+                    <Judge>Phil</Judge>
+                    <Score>10</Score>
+                </Result>
+            </Results>
+        </Audition>
+        <Audition>
+            <Contestant>Ann</Contestant>
+            <Piece>Habanera</Piece>
+            <Results>
+                <Result>
+                    <Judge>Judy</Judge>
+                    <Score>7</Score>
+                </Result>
+                <Result>
+                    <Judge>Phil</Judge>
+                    <Score>6</Score>
+                </Result>
+            </Results>
+        </Audition>
+        <Audition>
+            <Contestant>Bess</Contestant>
+            <Piece>Giselle</Piece>
+            <Results>
+                <Result>
+                    <Judge>Judy</Judge>
+                    <Score>8</Score>
+                </Result>
+                <Result>
+                    <Judge>Phil</Judge>
+                    <Score>7</Score>
+                </Result>
+            </Results>
+        </Audition>
+        <Audition>
+            <Contestant>Tom</Contestant>
+            <Piece>Besame Mucho</Piece>
+            <Results>
+                <Result>
+                    <Judge>Judy</Judge>
+                    <Score>5</Score>
+                </Result>
+                <Result>
+                    <Judge>Phil</Judge>
+                    <Score>5</Score>
+                </Result>
+            </Results>
+        </Audition>
+        <Audition>
+            <Contestant>Tom</Contestant>
+            <Piece>The Tramp</Piece>
+            <Results>
+                <Result>
+                    <Judge>Judy</Judge>
+                    <Score>7</Score>
+                </Result>
+                <Result>
+                    <Judge>Phil</Judge>
+                    <Score>6</Score>
+                </Result>
+            </Results>
         </Audition>
     </Show>
+    
+    <!-- Show 3 -->
+    <Show ShowName="Show3">
+        <ShowDate>2014-06-02</ShowDate>
+        <Audition>
+            <Contestant>Bob</Contestant>
+            <Piece>The Tramp</Piece>
+            <Results>
+                <Result>
+                    <Judge>Irving</Judge>
+                    <Score>8</Score>
+                </Result>
+                <Result>
+                    <Judge>Phil</Judge>
+                    <Score>7</Score>
+                </Result>
+                <Result>
+                    <Judge>Oscar</Judge>
+                    <Score>9</Score>
+                </Result>
+            </Results>
+        </Audition>
+        <Audition>
+            <Contestant>Ann</Contestant>
+            <Piece>Besame Mucho</Piece>
+            <Results>
+                <Result>
+                    <Judge>Irving</Judge>
+                    <Score>7</Score>
+                </Result>
+                <Result>
+                    <Judge>Phil</Judge>
+                    <Score>6</Score>
+                </Result>
+                <Result>
+                    <Judge>Oscar</Judge>
+                    <Score>4</Score>
+                </Result>
+            </Results>
+        </Audition>
+        <Audition>
+            <Contestant>Bess</Contestant>
+            <Piece>Swan Lake</Piece>
+            <Results>
+                <Result>
+                    <Judge>Irving</Judge>
+                    <Score>6</Score>
+                </Result>
+                <Result>
+                    <Judge>Phil</Judge>
+                    <Score>8</Score>
+                </Result>
+                <Result>
+                    <Judge>Oscar</Judge>
+                    <Score>7</Score>
+                </Result>
+            </Results>
+        </Audition>
+        <Audition>
+            <Contestant>Tom</Contestant>
+            <Piece>Barcarolle</Piece>
+            <Results>
+                <Result>
+                    <Judge>Irving</Judge>
+                    <Score>9</Score>
+                </Result>
+                <Result>
+                    <Judge>Phil</Judge>
+                    <Score>7</Score>
+                </Result>
+                <Result>
+                    <Judge>Oscar</Judge>
+                    <Score>6</Score>
+                </Result>
+            </Results>
+        </Audition>
+        <Audition>
+            <Contestant>Don</Contestant>
+            <Piece>Giselle</Piece>
+            <Results>
+                <Result>
+                    <Judge>Irving</Judge>
+                    <Score>8</Score>
+                </Result>
+                <Result>
+                    <Judge>Phil</Judge>
+                    <Score>6</Score>
+                </Result>
+                <Result>
+                    <Judge>Oscar</Judge>
+                    <Score>9</Score>
+                </Result>
+            </Results>
+        </Audition>
+    </Show>
+    
+    <!-- Show 4 -->
+<!--    <Show ShowName="Show3">-->
+<!--        <ShowDate>2014-06-02</ShowDate>-->
+<!--        <Audition>-->
+<!--            <Contestant></Contestant>-->
+<!--            <Piece></Piece>-->
+<!--            <Results>-->
+<!--                <Result>-->
+<!--                    <Judge>Irving</Judge>-->
+<!--                    <Score></Score>-->
+<!--                </Result>-->
+<!--                <Result>-->
+<!--                    <Judge>Phil</Judge>-->
+<!--                    <Score></Score>-->
+<!--                </Result>-->
+<!--                <Result>-->
+<!--                    <Judge>Oscar</Judge>-->
+<!--                    <Score></Score>-->
+<!--                </Result>-->
+<!--            </Results>-->
+<!--        </Audition>-->
+<!--    </Show>-->
+<!--    -->
+    <!-- Show 5 -->
+<!--    <Show ShowName="Show3">-->
+<!--        <ShowDate>2014-06-02</ShowDate>-->
+<!--        <Audition>-->
+<!--            <Contestant></Contestant>-->
+<!--            <Piece></Piece>-->
+<!--            <Results>-->
+<!--                <Result>-->
+<!--                    <Judge>Irving</Judge>-->
+<!--                    <Score></Score>-->
+<!--                </Result>-->
+<!--                <Result>-->
+<!--                    <Judge>Phil</Judge>-->
+<!--                    <Score></Score>-->
+<!--                </Result>-->
+<!--                <Result>-->
+<!--                    <Judge>Oscar</Judge>-->
+<!--                    <Score></Score>-->
+<!--                </Result>-->
+<!--            </Results>-->
+<!--        </Audition>-->
+<!--    </Show>-->
 </TSS>
