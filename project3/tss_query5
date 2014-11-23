@@ -1,0 +1,42 @@
+xquery version "3.0";
+declare default element namespace "http://localhost:8080/exist/apps/tss-collection";
+
+declare function local:extractContestants($audition as element()*) as element()* {
+    for $contestant in $audition/Contestant
+    return $contestant
+};
+
+declare function local:directCoaudition($contestant as element()*) as element()* {
+    let $tss := doc("/db/apps/tss-collection/tss.xml")/TSS
+    for $show1 in $tss/Show, 
+        $audition1 in $show1/Audition, 
+        $result1 in $audition1/Results/Result
+    where $audition1/Contestant = $contestant
+    return 
+        for $show2 in $tss/Show, 
+            $audition2 in $show2/Audition, 
+            $result2 in $audition2/Results/Result
+        where $show1/ShowDate = $show2/ShowDate and
+                $result1/Judge = $result2/Judge and
+                $result1/Score = $result2/Score and
+                $audition1/Piece = $audition2/Piece and
+                $audition1/Contestant < $audition2/Contestant 
+        return $audition2/Contestant
+};
+
+declare function local:indirectCoaudition($contestant as element()*) as element()*{
+  let $direct := local:directCoaudition($contestant)
+  for $other in $direct
+  return $direct | local:indirectCoaudition($other)
+};
+
+let $tss := doc("/db/apps/tss-collection/tss.xml")/TSS
+return
+    <query5>
+    {
+        for $contestant1 in distinct-values(
+            for $audition in $tss/Show/Audition
+            return local:extractContestants($audition))
+(:        return <Contestant>{$contestant1}</Contestant>:)
+        return <result>{concat( $contestant1, " coaudits with ", local:directCoaudition(<Contestant>{$contestant1}</Contestant>))}</result>
+    }</query5>
