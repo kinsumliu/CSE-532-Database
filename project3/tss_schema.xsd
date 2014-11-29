@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<!--CSE532 Project 3--><!--File name: tss_schema.xsd--><!--Author Kin Sum Liu (109247869)--><!--Brief description: This is the schema for the data. The name space is declared as such-->
 <schema xmlns="http://www.w3.org/2001/XMLSchema" xmlns:tss="http://localhost:8080/exist/apps/tss-collection" targetNamespace="http://localhost:8080/exist/apps/tss-collection">
     
     <!-- Definition of simple types -->

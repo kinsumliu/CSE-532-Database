@@ -1,10 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<!--CSE532 Project 3--><!--File name: tss.xml--><!--Author Kin Sum Liu (109247869)--><!--Brief description: This contains all the data we need. --><!--"TSS" is the name of the root element that represents the list of shows--><!--I pledge my honor that all parts of this project were done by me alone and without collaboration with anybody else-->
 <TSS xmlns="http://localhost:8080/exist/apps/tss-collection" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://localhost:8080/exist/apps/tss-collection tss_schema.xsd">
         <!-- default ns for instance doc -->
         <!-- ns for XML schema names that occur in instance doc -->
         <!-- schemaLocation says: the schema for ns is found in xxx.xsd -->
     <!-- Show 1 -->
-    <Show ShowName="Show1">
+    <Show>
+        <ShowName>Show1</ShowName>
         <ShowDate>2014-02-02</ShowDate>
         <Audition>
             <Contestant>Joe</Contestant>
@@ -117,7 +119,8 @@
     </Show>
     
     <!-- Show2 -->
-    <Show ShowName="Show2">
+    <Show>
+        <ShowName>Show1</ShowName>
         <ShowDate>2014-04-02</ShowDate>
         <Audition>
             <Contestant>Bob</Contestant>
@@ -220,7 +223,8 @@
     </Show>
     
     <!-- Show 3 -->
-    <Show ShowName="Show3">
+    <Show>
+        <ShowName>Show3</ShowName>
         <ShowDate>2014-06-02</ShowDate>
         <Audition>
             <Contestant>Bob</Contestant>
@@ -315,7 +319,8 @@
     </Show>
     
     <!-- Show 4 -->
-    <Show ShowName="Show4">
+    <Show>
+        <ShowName>Show4</ShowName>
         <ShowDate>2014-08-02</ShowDate>
         <Audition>
             <Contestant>Joe</Contestant>
@@ -390,7 +395,8 @@
     </Show>
     
     <!-- Show 5 -->
-    <Show ShowName="Show5">
+    <Show>
+        <ShowName>Show5</ShowName>
         <ShowDate>2014-10-05</ShowDate>
         <Audition>
             <Contestant>Bob</Contestant>

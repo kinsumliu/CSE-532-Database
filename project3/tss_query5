@@ -1,11 +1,18 @@
+(:CSE532 Project 3:)
+(:File name: tss_query5.xquery:)
+(:Author Kin Sum Liu (109247869):)
+(:Brief description: Query for "a chained coaudition":)
+
 xquery version "3.0";
 declare default element namespace "http://localhost:8080/exist/apps/tss-collection";
 
+(:extract the contestants from the document:)
 declare function local:extractContestants($audition as element()*) as element()* {
     for $contestant in $audition/Contestant
     return $contestant
 };
 
+(:find direct coaudition:)
 declare function local:directCoaudition($contestant as element()*) as element()* {
     let $tss := doc("/db/apps/tss-collection/tss.xml")/TSS
     for $show1 in $tss/Show, 
@@ -25,11 +32,14 @@ declare function local:directCoaudition($contestant as element()*) as element()*
 };
 
 declare function local:indirectCoaudition($contestant as element()*, $visited as element()*) as element()*{
+    (:base case direct coaudition:)
     let $direct := local:directCoaudition($contestant)
     for $other in $direct
     return 
+        (:cycle check. if the list stops growing, return an empty cycle element to notify the function that calls it:)
         if ($other intersect $visited)
             then <cycle/>
+        (:recursive definition. the list of coaudition grows every iteration by taking union of two sets:)
         else ($direct | local:indirectCoaudition($other, $visited|$other))
 };
 
@@ -40,9 +50,12 @@ return
         for $contestant1 in distinct-values(
             for $audition in $tss/Show/Audition
             return local:extractContestants($audition))
+        (:check empty. contestant1 must have some coaudition otherwise it wont be returned as result:)
         where local:directCoaudition(<Contestant>{$contestant1}</Contestant>)
         return 
+            (:find all coaudition by calling indirectCoaudition:)
             for $other in distinct-values(local:indirectCoaudition(<Contestant>{$contestant1}</Contestant>, <Contestant>{$contestant1}</Contestant>))
+            (:remove duplicate:)
             where $contestant1 < $other
             return <result>{concat( $contestant1, " coaudits with ", $other)}</result>
     }</query5>
