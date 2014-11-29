@@ -1,68 +1,76 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!--CSE532 Project 3--><!--File name: tss_schema.xsd--><!--Author Kin Sum Liu (109247869)--><!--Brief description: This is the schema for the data. The name space is declared as such-->
-<schema xmlns="http://www.w3.org/2001/XMLSchema" xmlns:tss="http://localhost:8080/exist/apps/tss-collection" targetNamespace="http://localhost:8080/exist/apps/tss-collection">
-    
-    <!-- Definition of simple types -->
-    <simpleType name="scoreType">
-        <restriction>
-            <pattern value="s[0-9]{1}"/>
-        </restriction>
-    </simpleType>
+<!--CSE532 Project 3-->
+<!--File name: tss_schema.xsd-->
+<!--Author Kin Sum Liu (109247869)-->
+<!--Brief description: This is the schema for the data. The name space is declared as such-->
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="http://localhost:8080/exist/apps/tss-collection" targetNamespace="http://localhost:8080/exist/apps/tss-collection">
 
-    <!-- Definition of simple elements -->
-    <element name="Contestant" type="string"/>
-    <element name="Judge" type="string"/>
-    <element name="Piece" type="string"/>
-    <element name="Score" type="tss:scoreType"/>
-    
-    <!-- Definition of complex elements -->
-    <element name="Result" minOccurs="1" maxOccurs="unbounded">
-        <complexType>
-            <sequence>
-                <element ref="Judge" maxOccurs="1"/>
-                <element ref="Score" maxOccurs="1"/>
-            </sequence>
-        </complexType>
-    </element>
-    <element name="Results">
-        <complexType>
-            <sequence>
-                <element ref="Result" maxOccurs="unbounded"/>
-            </sequence>
-        </complexType>
-    </element>
-    <element name="Audition">
-        <complexType>
-            <sequence>
-                <element ref="Contestant" maxOccurs="1"/>
-                <element ref="Piece" maxOccurs="1"/>
-                <element ref="Results"/>
-            </sequence>
-        </complexType>
-    </element>
-    <element name="Show">
-        <element name="ShowName" type="string"/>
-        <element name="ShowDate" type="string"/>
-        <complexType>
-            <sequence>
-                <element ref="Audition" minOccurs="1" maxOccurs="unbounded"/>
-            </sequence>
-        </complexType>
-    </element>
-    
-    <!-- Definition of root element (Shows List) -->
-    <element name="TSS">
-        <complexType>
-            <sequence>
-                <element ref="Show" maxOccurs="unbounded"/>
-            </sequence>
-        </complexType>
-    </element>
-    
-    <!-- Definition of keys -->
-    <key name="PrimaryKeyForShow">
-        <selector xpath="Show"/>
-        <field xpath="ShowName"/>
-        <field xpath="ShowDate"/>
-    </key>
-</schema>
+	<!-- Definition of simple types -->
+	<xs:simpleType name="scoreType">
+		<xs:restriction base="xs:integer">
+			<xs:pattern value="[0-9]|10"/>
+		</xs:restriction>
+	</xs:simpleType>
+	
+	<!-- Definition of simple elements -->
+	<xs:element name="Contestant" type="xs:string"/>
+	<xs:element name="Judge" type="xs:string"/>
+	<xs:element name="Piece" type="xs:string"/>
+	<xs:element name="Score" type="scoreType"/>
+	<xs:element name="ShowName" type="xs:string"/>
+	<xs:element name="ShowDate" type="xs:string"/>
+	
+	<!-- Definition of complex elements -->
+	<xs:element name="Result">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="Judge" maxOccurs="1"/>
+				<xs:element ref="Score" maxOccurs="1"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	
+	<xs:element name="Results">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="Result" maxOccurs="unbounded"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	
+	<xs:element name="Audition">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="Contestant" maxOccurs="1"/>
+				<xs:element ref="Piece" maxOccurs="1"/>
+				<xs:element ref="Results" minOccurs="1" maxOccurs="unbounded"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	
+	<xs:element name="Show">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="ShowName"/>
+				<xs:element ref="ShowDate"/>
+				<xs:element ref="Audition" minOccurs="1" maxOccurs="unbounded"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	
+	<!-- Definition of root element (Shows List) -->
+	<xs:element name="TSS">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="Show" maxOccurs="unbounded"/>
+			</xs:sequence>
+		</xs:complexType>
+		
+		<!-- Definition of keys -->
+		<xs:key name="PrimaryKeyForShow">
+			<xs:selector xpath="Show"/>
+			<xs:field xpath="ShowName"/>
+			<xs:field xpath="ShowDate"/>
+		</xs:key>
+	</xs:element>
+</xs:schema>
