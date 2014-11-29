@@ -2,6 +2,7 @@
 (:File name: tss_query3.xquery:)
 (:Author Kin Sum Liu (109247869):)
 (:Brief description: Query for "pairs of contestants perform same piece with same max score at shows > 3 judges":)
+(:I pledge my honor that all parts of this project were done by me alone and without collaboration with anybody else:)
 
 xquery version "3.0";
 declare default element namespace "http://localhost:8080/exist/apps/tss-collection";
@@ -11,7 +12,7 @@ return
     <query3>
     {
         for $show1 in $tss/Show, $audition1 in $show1/Audition
-        return 
+        return
             for $show2 in $tss/Show, $audition2 in $show2/Audition
             where $audition1/Contestant < $audition2/Contestant and
                 $audition1/Piece = $audition2/Piece and

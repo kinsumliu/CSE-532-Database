@@ -2,6 +2,7 @@
 (:File name: tss_query5.xquery:)
 (:Author Kin Sum Liu (109247869):)
 (:Brief description: Query for "a chained coaudition":)
+(:I pledge my honor that all parts of this project were done by me alone and without collaboration with anybody else:)
 
 xquery version "3.0";
 declare default element namespace "http://localhost:8080/exist/apps/tss-collection";
@@ -15,19 +16,19 @@ declare function local:extractContestants($audition as element()*) as element()*
 (:find direct coaudition:)
 declare function local:directCoaudition($contestant as element()*) as element()* {
     let $tss := doc("/db/apps/tss-collection/tss.xml")/TSS
-    for $show1 in $tss/Show, 
-        $audition1 in $show1/Audition, 
+    for $show1 in $tss/Show,
+        $audition1 in $show1/Audition,
         $result1 in $audition1/Results/Result
     where $audition1/Contestant = $contestant
-    return 
-        for $show2 in $tss/Show, 
-            $audition2 in $show2/Audition, 
+    return
+        for $show2 in $tss/Show,
+            $audition2 in $show2/Audition,
             $result2 in $audition2/Results/Result
         where $show1/ShowDate = $show2/ShowDate and
                 $result1/Judge = $result2/Judge and
                 $result1/Score = $result2/Score and
                 $audition1/Piece = $audition2/Piece and
-                $audition1/Contestant != $audition2/Contestant 
+                $audition1/Contestant != $audition2/Contestant
         return $audition2/Contestant
 };
 
@@ -35,7 +36,7 @@ declare function local:indirectCoaudition($contestant as element()*, $visited as
     (:base case direct coaudition:)
     let $direct := local:directCoaudition($contestant)
     for $other in $direct
-    return 
+    return
         (:cycle check. if the list stops growing, return an empty cycle element to notify the function that calls it:)
         if ($other intersect $visited)
             then <cycle/>
@@ -52,7 +53,7 @@ return
             return local:extractContestants($audition))
         (:check empty. contestant1 must have some coaudition otherwise it wont be returned as result:)
         where local:directCoaudition(<Contestant>{$contestant1}</Contestant>)
-        return 
+        return
             (:find all coaudition by calling indirectCoaudition:)
             for $other in distinct-values(local:indirectCoaudition(<Contestant>{$contestant1}</Contestant>, <Contestant>{$contestant1}</Contestant>))
             (:remove duplicate:)

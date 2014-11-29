@@ -2,6 +2,7 @@
 (:File name: tss_query4b.xquery:)
 (:Author Kin Sum Liu (109247869):)
 (:Brief description: Query for "first contestant performed all the pieces of the second contestant with quantifiers":)
+(:I pledge my honor that all parts of this project were done by me alone and without collaboration with anybody else:)
 
 xquery version "3.0";
 declare default element namespace "http://localhost:8080/exist/apps/tss-collection";
@@ -19,7 +20,7 @@ return
         for $contestant1 in distinct-values(
              for $audition in $tss/Show/Audition
              return local:extractContestants($audition))
-        return 
+        return
             for $contestant2 in distinct-values(
                 for $audition in $tss/Show/Audition
                 return local:extractContestants($audition))
