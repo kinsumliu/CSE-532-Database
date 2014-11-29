@@ -1,0 +1,18 @@
+CSE532 -- Project 3
+File name: README
+Author: Kin Sum Liu (109247869)
+Brief description: Provide instructions on how to run the query
+I pledge my honor that all parts of this project were done by me alone and 
+without collaboration with anybody else
+
+Files:
+data - tss.xml
+schema - tss_schema.xsd
+query - tss_queryX.xquery X:{1,2,3,4a,4b,5}
+
+Instruction:
+Create a web application on exist-db with the name tss-collection.
+Put data, schema and queries files under /db/apps/tss-collection.
+In eXide, open the queries and click "Run" or "Eval".
+Results are shown in the window.
+
