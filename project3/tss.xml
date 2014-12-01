@@ -1,5 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!--CSE532 Project 3--><!--File name: tss.xml--><!--Author Kin Sum Liu (109247869)--><!--Brief description: This contains all the data we need. --><!--"TSS" is the name of the root element that represents the list of shows--><!--I pledge my honor that all parts of this project were done by me alone and without collaboration with anybody else-->
+<!--CSE532 Project 3-->
+<!--File name: tss.xml-->
+<!--Author Kin Sum Liu (109247869)-->
+<!--Brief description: This contains all the data we need. -->
+<!--"TSS" is the name of the root element that represents the list of shows-->
+<!--I pledge my honor that all parts of this project were done by me alone and without collaboration with anybody else-->
 <TSS xmlns="http://localhost:8080/exist/apps/tss-collection" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://localhost:8080/exist/apps/tss-collection tss_schema.xsd">
         <!-- default ns for instance doc -->
         <!-- ns for XML schema names that occur in instance doc -->
